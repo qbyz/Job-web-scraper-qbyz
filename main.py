@@ -20,25 +20,22 @@ def search(url:str):
             print(instances[j-1])
         j += 1
 search(url)
-url = "https://bestbuycanada.wd3.myworkdayjobs.com/BestBuyCA_Career?geotagText=CA/M6G%204B7/Toronto&distance=677b3630ee5f01a8d7424fdbdb0724d4&timeType=540b7b97140b01bb879ee98c7d1a8400"
 
-def bestBuy(url:str):
+url = "https://bestbuycanada.wd3.myworkdayjobs.com/BestBuyCA_Career?geotagText=CA/M6G%204B7/Toronto&distance=677b3630ee5f01a8d7424fdbdb0724d4&timeType=540b7b97140b01bb879ee98c7d1a8400"
+selector = ".css-19uc56f"
+def bestBuy(url:str, selector:str):
     service = Service(GeckoDriverManager().install())
     driver = webdriver.Firefox(service=service)
 
     driver.get(url)
 
     wait = WebDriverWait(driver, 10)
-    wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, ".gwt-Anchor")))
+    wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, selector)))
 
-    job_listings = driver.find_elements(By.CSS_SELECTOR, ".gwt-anchor")
+    job_listings = driver.find_elements(By.CSS_SELECTOR, selector)
 
     for job in job_listings:
         print(job.text)
 
     driver.quit()
-bestBuy(url)
-for job in job_listings:
-    print(job.text)
-
-driver.quit()
+bestBuy(url, selector)
