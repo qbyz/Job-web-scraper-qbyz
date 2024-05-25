@@ -16,35 +16,35 @@ def fiesta(url:str):
     j = 0
     for i in instances:
         if "Part-time" in i:
-            print("success")
-            print(instances[j-1])
+            print(f"{instances[j-1]} (Fiesta Farms)")
         j += 1
+
 fiesta(url)
 
 url = "https://bestbuycanada.wd3.myworkdayjobs.com/BestBuyCA_Career?geotagText=CA/M6G%204B7/Toronto&distance=677b3630ee5f01cec31b4fdbdb0723d4&timeType=540b7b97140b01bb879ee98c7d1a8400"
 selector = ".css-19uc56f"
-def bestBuy(url:str, selector:str, desc_selector:str):
+def bestBuy(url:str, selector:str, desc_selector:str, company:str):
     service = Service(GeckoDriverManager().install())
     driver = webdriver.Firefox(service=service)
 
     driver.get(url)
 
-    wait = WebDriverWait(driver, 20)
+    wait = WebDriverWait(driver, 10)
     wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, selector)))
 
     job_listings = driver.find_elements(By.CSS_SELECTOR, selector)
-    if url != "https://bestbuycanada.wd3.myworkdayjobs.com/BestBuyCA_Career?geotagText=CA/M6G%204B7/Toronto&distance=677b3630ee5f01cec31b4fdbdb0723d4&timeType=540b7b97140b01bb879ee98c7d1a8400":
+
+    if company != "Best Buy":
         job_descs = driver.find_elements(By.CSS_SELECTOR, desc_selector)
         for job, desc in zip(job_listings, job_descs):
-            print("Job Title:", job.text)
-            print("Job Description:", desc.text)
+            print(f"{job.text}: {desc.text} ({company})")
+
     else:
         for job in job_listings:
-            print(job.text)
-
+            print(f"{job.text} ({company})")
     driver.quit()
-bestBuy(url, selector, " ")
+bestBuy(url, selector, " ", "Best Buy")
 url = "https://careers.smartrecruiters.com/IndigoBooksMusic/retail?search=toronto"
 selector = ".details-title.job-title.link--block-target"
 descselector = ".details-desc.job-desc"
-bestBuy(url,selector,descselector)
+bestBuy(url, selector, descselector, "Indigo")
