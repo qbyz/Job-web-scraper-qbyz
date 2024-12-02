@@ -21,7 +21,7 @@ def fiesta(url:str):
 
 fiesta(url)
 
-url = "https://bestbuycanada.wd3.myworkdayjobs.com/BestBuyCA_Career?geotagText=CA/M6G4B7/Toronto&distance=677b3630ee5f01cec31b4fdbdb0723d4&timeType=540b7b97140b01bb879ee98c7d1a8400"
+url = "https://bestbuycanada.wd3.myworkdayjobs.com/BestBuyCA_Career?geotagText=CA//Toronto&distance=677b3630ee5f01cec31b4fdbdb0723d4&timeType=540b7b97140b01bb879ee98c7d1a8400"
 selector = ".css-19uc56f"
 def bestBuy(url:str, selector:str, company:str, desc_selector=None):
     service = Service(GeckoDriverManager().install())
